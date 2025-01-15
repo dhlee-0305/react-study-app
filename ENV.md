@@ -1,0 +1,11 @@
+
+
+https://nodejs.org/ko/download에서 node.js 16.20.2 다운로드 및 설치
+
+> $ npx create-react-app .
+
+
+
+모듈 없다는 에러 발행하여 추가 모듈 설치
+
+> $ npm install web-vitals
