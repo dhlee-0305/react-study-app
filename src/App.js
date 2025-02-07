@@ -1,5 +1,9 @@
 import "./App.css";
 import React, { useState } from "react";
+import {createStore} from "redux";
+import {Provider, useSelector, useDispatch} from "react-redux";
+import store from "./store";
+import {up} from "./counterSlice";
 
 function Header(props) {
   console.log("props", props);
@@ -115,6 +119,35 @@ function Update(props) {
     </article>
   );
 }
+
+function Counter(){
+  const dispatch = useDispatch();
+  const count = useSelector( (state) => {
+    console.log("Counter():state:", state);
+    return state.counter.value;
+  });
+  return (
+    <div>
+      <button onClick={()=>{
+        //dispatch({type:'counterSlice/up', step:2});
+        //dispatch(counterSlice.actions.up(2))
+        dispatch(up(2))
+      }}>+</button> {count}
+    </div>
+  )
+}
+/*
+function reducer(state, action){
+  if(action.type === 'up'){
+    return {...state, value:state.value+action.step};
+  }
+  return state;
+}
+
+createStore(reducer);
+const initialState = {value:0};
+const store = createStore(reducer, initialState);
+*/
 
 function App() {
   const [mode, setMode] = useState("WELCOME");
@@ -242,6 +275,11 @@ function App() {
 
           {contextControl}
         </ul>
+        <Provider store={store}>
+          <div>
+            <Counter></Counter>
+          </div>
+        </Provider>
       </div>
     </>
   );
